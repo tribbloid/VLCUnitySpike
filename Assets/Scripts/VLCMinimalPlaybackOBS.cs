@@ -5,7 +5,7 @@ using LibVLCSharp;
 /// this class serves as an example on how to configure playback in Unity with VLC for Unity using LibVLCSharp.
 /// for libvlcsharp usage documentation, please visit https://code.videolan.org/videolan/LibVLCSharp/-/blob/master/docs/home.md
 /// On Android, make sure you require Internet access in your manifest to be able to access internet-hosted videos in these demo scenes.
-public class VLCMinimalPlaybackMod : MonoBehaviour
+public class VLCMinimalPlaybackOBS : MonoBehaviour
 {
     LibVLC _libVLC;
     MediaPlayer _mediaPlayer;
@@ -65,7 +65,14 @@ public class VLCMinimalPlaybackMod : MonoBehaviour
             if(_mediaPlayer.Media == null)
             {
                 // playing remote media
-                _mediaPlayer.Media = new Media(new Uri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"));
+                _mediaPlayer.Media = new Media(
+                    new Uri(
+                        "dshow://"
+                    )
+                );
+                
+                _mediaPlayer.Media.AddOption(":dshow-vdev=\"OBS Virtual Camera\"");
+                _mediaPlayer.Media.AddOption(":dshow-adev=None");
             }
 
             _mediaPlayer.Play();
